@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - iRedVouch</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+</head>
+<style>
+    body,html{
+        height: 45%;
+        background: radial-gradient(rgb(221, 164, 164), rgb(223, 223, 173),rgb(185, 230, 185));
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .login-container{
+        background-color: rgb(255,230,249);
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 10px 20px ;
+        width: 100%;
+        max-width: 400px;
+        margin: auto;
+    }
+    .login-container h2{
+        margin-bottom: 30px;
+        text-align: center;
+        color: #333;
+    }
+    .form-control:focus{
+        box-shadow: none;
+        border-color: #87cf87;
+    }
+    .btn-emphasis{
+        background-color: pink;
+        color: white;
+        border: none;
+        transition: all 0.3s;
+    }
+    .btn-emphasis:hover{
+        background-color: rgb(153, 194, 248);
+        transform: translateY(-2px);
+    }
+    .alertbox{
+        margin-top: 10px;
+        background-color: aqua;
+    }
+    .form-label{
+        font-weight: bold;
+        color: #555;
+    }
+    .socialmedia-icons .icon-container{
+        position: relative;
+        display: inline-block;
+        text-align: center;
+        width: 100px;
+    }
+    .socialmedia-icons .icon-container img{
+        width: 40px;
+        transition: opacity 0.3s ease-in-out;
+    }
+</style>
+<body>
+    <div class="login-container">
+        <h2>Welcome to iRedVouch</h2>
+        <form id="loginForm">
+        <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" class="form-control" id="username" placeholder="Enter your username">
+    </div>
+    <div class="class mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" placeholder="Enter your password">
+    </div>
+    <button type="submit" class="btn btn-emphasis">Login</button>
+    <div id="loginAlert" class="alert alert-info mt-4 d-none" role="alert"></div>
+    </form>
+    <hr>
+    <p class="text-muted">Or sign in with</p>
+    <div class="socialmedia-icons d-flex justify-content-center position relative">
+        <a href="#">
+            <div class="icon-container" data-="FACEBOOK">
+                <img src="Resources (Pictures)/Vector-Facebook-Logo-Black-And-White-PNG-Transparent-Image.png" alt="FACEBOOK">
+            </div>
+        </a>
+        <div class="icon-container" data-="FACEBOOK">
+            <img src="Resources (Pictures)/Vector-Facebook-Logo-Black-And-White-PNG-Transparent-Image.png" alt="FACEBOOK">
+        </div>
+        <div class="icon-container" data-="FACEBOOK">
+            <img src="Resources (Pictures)/Vector-Facebook-Logo-Black-And-White-PNG-Transparent-Image.png" alt="FACEBOOK">
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog centered">
+        <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="loginModalLabel"> Login Successful</h5>
+            </div>
+            <div class="modal-body text-center">
+            <p id="welcomeMessage">Welcome back! Redirecting to homepage......</p>
+            <div class="spinner-border text-success" role="status">
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+    document.getElementById(`loginForm`).addEventListener(`submit`, function (e) {
+        e.preventDefault();
+        const username = document.getElementById(`username`).value.trim();
+        const password = document.getElementById(`password`).value.trim();
+        const alertBox = document.getElementById(`loginAlert`);
+
+        if (username && password){
+            alertBox.classList.add(`d-none`);
+            localStorage.setItem(`username`, username);
+            const modal = new bootstrap.Modal(document.getElementById(`loginModal`));
+            document.getElementById(`welcomeMessage`).textContent = `Hello, ${username} ! Redirecting to hompage.....`;
+            modal.show();
+
+            setTimeout(()=> {
+                window.location.href =`home.html`;
+            }, 2000);
+        }else{
+            alertBox.innerText = `Please enter both username and password!`;
+            alertBox.classList.remove(`d-none`);
+            alertBox.classList.replace("alert-info", "alert-warning");
+        }
+    });
+
+    document.getElementById(`username`).addEventListener(`input`, function (){
+        const alertBox = document.getElementById(`loginAlert`);
+        if(!alertBox.classList.contains(`d-none`)){
+            alertBox.classList.add(`d-none`)
+        }
+    });
+    document.getElementById(`password`).addEventListener(`input`, function (){
+        const alertBox = document.getElementById(`loginAlert`);
+        if(!alertBox.classList.contains(`d-none`)){
+            alertBox.classList.add(`d-none`)
+        }
+    });
+
+</script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+</body>
+</html>
